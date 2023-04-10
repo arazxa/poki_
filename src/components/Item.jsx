@@ -12,7 +12,7 @@ const Item = ({ image, size, name, index, video, id }) => {
 
   return (
     <div
-      className={`item h${size} w${size} INDEX-${index}`}
+      className={`item h-${size} w-${size} INDEX-${index}`}
       onMouseEnter={(e) => {
         loadvideo(e.target, index);
       }}
@@ -22,14 +22,14 @@ const Item = ({ image, size, name, index, video, id }) => {
     >
       <div className="item-content">
         <div
-          className="rounded-lg overflow-hidden hover:scale-105 duration-500 cursor-pointer shadow-lg relative"
+          className="rounded-lg overflow-hidden hover:scale-105 duration-500 cursor-pointer shadow-lg relative h-full"
           style={{
             backgroundImage: `url(${image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="flex justify-center items-center pointer-events-none">
+          <div className="flex justify-center items-center">
             <span className="visibility-hidden">{name}</span>
             <span className="posttitle z-50 absolute bottom-0 pt-1 pb-2 text-white font-bold left-0 w-full line-height-normal text-center bg-black/5 opacity-0">
               {name}
