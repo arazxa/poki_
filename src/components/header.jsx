@@ -1,48 +1,88 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import logo from "../assets/logo.png";
 import CategoryCard from "./category-card";
+import axios from "axios";
+import { environment } from "../environment";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [carousel, setCarousel] = useState([
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-    {
-      image:
-        "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
-      name: "Subway Surfers",
-    },
-  ]);
+  //
+  const [carousel, setCarousel] = useState([]);
+
+  const [categories, setCategories] = useState([]);
+
+  let c;
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  async function loadCategories() {
+    await axios
+      .get(environment.BACKEND + environment.CATEGORIES_API)
+      .then((res) => {
+        console.log(environment.BACKEND + environment.CATEGORIES_API);
+
+        c = res.data;
+        c = c.map((category, index) => {
+          return {
+            image: "",
+            name: category.name,
+            // image: post._embedded["wp:featuredmedia"][0].source_url,
+            // name: post.title.rendered,
+            // size: 1, //post.acf.size.split(":")[1],
+            // video: post.acf.video,
+            // id: post.id,
+          };
+        });
+        let b = [];
+        for (let i = 0; i < c.length; i++) {
+          console.log(c[i].name);
+          if (c[i].name != "Uncategorized") {
+            b.push(c[i]);
+          }
+        }
+        setCarousel(b);
+      });
+  }
+  //
+  //const [carousel, setCarousel] = useState([ ]);
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
+  // {
+  //   image:
+  //     "https://img.poki.com/cdn-cgi/image/quality=78,width=204,height=204,fit=cover,f=auto/5556817d03e65900d9ca5f8cac175f79.png",
+  //   name: "Subway Surfers",
+  // },
 
   const settings = {
     dots: false,
@@ -110,7 +150,7 @@ const Header = () => {
                 <div
                   className="p-2"
                   onClick={() => {
-                    navigate("/post");
+                    navigate("/");
                   }}
                 >
                   <CategoryCard name={item.name} image={item.image} url={"#"} />
