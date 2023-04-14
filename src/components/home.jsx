@@ -129,19 +129,13 @@ export default function Home() {
           "?acf_format=standard&&_embed"
       )
       .then((res) => {
-        console.log(
-          environment.BACKEND +
-            environment.POSTS_API +
-            "?acf_format=standard&&_embed"
-        );
-
         p = res.data;
 
         p = p.map((post, index) => {
           return {
             image: post._embedded["wp:featuredmedia"][0].source_url,
             name: post.title.rendered,
-            size: 1, //post.acf.size.split(":")[1],
+            size: post.acf.size.split(":")[1],
             video: post.acf.video,
             id: post.id,
           };

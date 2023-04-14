@@ -55,7 +55,7 @@
   position: absolute;
   width: 100px;
   height: 100px;
-  /* line-height: 100px; */
+  line-height: 100px;
   margin: 10px;
   z-index: 1;
   will-change: transform;

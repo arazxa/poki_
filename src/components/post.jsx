@@ -56,7 +56,7 @@ export default function Post() {
     <div className="min-h-screen">
       <div className="lg:container mx-auto p-5">
         <div className="postcard shadow-lg bg-white">
-          <div dangerouslySetInnerHTML={{ __html: post.iframe }}></div>
+          <iframe className="w-full postcontent" src={post.iframe}></iframe>
           <div className="flex justify-between">
             <div className="p-3 flex items-center">
               <img src={post.icon} className="rounded-md w-10 h-10" />
