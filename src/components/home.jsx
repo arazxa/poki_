@@ -126,7 +126,7 @@ export default function Home() {
       .get(
         environment.BACKEND +
           environment.POSTS_API +
-          "?acf_format=standard&&_embed&&per_page=100"
+          "?acf_format=standard&&_embed"
       )
       .then((res) => {
         console.log(
